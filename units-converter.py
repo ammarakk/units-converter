@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import math
 
 def main():
     st.set_page_config(page_title="All-in-One Professional Tools", page_icon="🛠", layout="wide")
@@ -39,23 +38,26 @@ def calculator():
     st.subheader("🧮 Advanced Calculator")
     col1, col2 = st.columns(2)
     with col1:
-        num1 = st.number_input("Enter first number", value=, format="%.2f")
+        num1 = st.number_input("Enter first number", value=None, placeholder="Enter a value", format="%.2f")
     with col2:
-        num2 = st.number_input("Enter second number", value=, format="%.2f")
+        num2 = st.number_input("Enter second number", value=None, placeholder="Enter a value", format="%.2f")
     
     operation = st.selectbox("Choose an operation", ["Addition", "Subtraction", "Multiplication", "Division"], index=0)
     
     if st.button("Compute", use_container_width=True):
-        if operation == "Addition":
-            result = num1 + num2
-        elif operation == "Subtraction":
-            result = num1 - num2
-        elif operation == "Multiplication":
-            result = num1 * num2
-        elif operation == "Division":
-            result = num1 / num2 if num2 != 0 else "Error: Cannot divide by zero"
-        
-        st.success(f"Result: {result:.2f}")
+        if num1 is not None and num2 is not None:
+            if operation == "Addition":
+                result = num1 + num2
+            elif operation == "Subtraction":
+                result = num1 - num2
+            elif operation == "Multiplication":
+                result = num1 * num2
+            elif operation == "Division":
+                result = num1 / num2 if num2 != 0 else "Error: Cannot divide by zero"
+            
+            st.success(f"Result: {result:.2f}")
+        else:
+            st.error("Please enter both numbers.")
 
 def unit_converter():
     st.subheader("📏 Universal Unit Converter")
@@ -70,26 +72,29 @@ def unit_converter():
 
 def length_converter():
     st.write("Convert between meters and kilometers.")
-    value = st.number_input("Enter length (meters)", value=, format="%.2f")
-    st.success(f"{value} meters = {value / 1000:.4f} kilometers")
+    value = st.number_input("Enter length (meters)", value=None, placeholder="Enter a value", format="%.2f")
+    if value is not None:
+        st.success(f"{value} meters = {value / 1000:.4f} kilometers")
 
 def weight_converter():
     st.write("Convert between grams and kilograms.")
-    value = st.number_input("Enter weight (grams)", value=, format="%.2f")
-    st.success(f"{value} grams = {value / 1000:.4f} kilograms")
+    value = st.number_input("Enter weight (grams)", value=None, placeholder="Enter a value", format="%.2f")
+    if value is not None:
+        st.success(f"{value} grams = {value / 1000:.4f} kilograms")
 
 def temperature_converter():
     st.write("Convert between Celsius and Fahrenheit.")
-    value = st.number_input("Enter temperature (°C)", value=, format="%.2f")
-    st.success(f"{value}°C = {(value * 9/5) + 32:.2f}°F")
+    value = st.number_input("Enter temperature (°C)", value=None, placeholder="Enter a value", format="%.2f")
+    if value is not None:
+        st.success(f"{value}°C = {(value * 9/5) + 32:.2f}°F")
 
 def bmi_calculator():
     st.subheader("⚖️ Body Mass Index (BMI) Calculator")
-    weight = st.number_input("Enter your weight (kg)", value=, format="%.2f")
-    height = st.number_input("Enter your height (m)", value=0.0, format="%.2f")
+    weight = st.number_input("Enter your weight (kg)", value=None, placeholder="Enter a value", format="%.2f")
+    height = st.number_input("Enter your height (m)", value=None, placeholder="Enter a value", format="%.2f")
     
     if st.button("Calculate BMI", use_container_width=True):
-        if height > 0:
+        if weight is not None and height is not None and height > 0:
             bmi = weight / (height ** 2)
             df = pd.DataFrame({"Category": ["Underweight", "Normal Weight", "Overweight", "Obese"],
                                "BMI Range": ["<18.5", "18.5 - 24.9", "25 - 29.9", ">=30"]})
@@ -104,9 +109,8 @@ def bmi_calculator():
             else:
                 st.error("You are obese. Consult a healthcare provider.")
         else:
-            st.error("Height must be greater than zero")
-    
+            st.error("Please enter valid weight and height.")
+
 if __name__ == "__main__":
     main()
-
 
