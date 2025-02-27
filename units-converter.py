@@ -39,9 +39,9 @@ def calculator():
     st.subheader("🧮 Advanced Calculator")
     col1, col2 = st.columns(2)
     with col1:
-        num1 = st.number_input("Enter first number", value=0.0, format="%.2f")
+        num1 = st.number_input("Enter first number", value=, format="%.2f")
     with col2:
-        num2 = st.number_input("Enter second number", value=0.0, format="%.2f")
+        num2 = st.number_input("Enter second number", value=, format="%.2f")
     
     operation = st.selectbox("Choose an operation", ["Addition", "Subtraction", "Multiplication", "Division"], index=0)
     
@@ -70,22 +70,22 @@ def unit_converter():
 
 def length_converter():
     st.write("Convert between meters and kilometers.")
-    value = st.number_input("Enter length (meters)", value=0.0, format="%.2f")
+    value = st.number_input("Enter length (meters)", value=, format="%.2f")
     st.success(f"{value} meters = {value / 1000:.4f} kilometers")
 
 def weight_converter():
     st.write("Convert between grams and kilograms.")
-    value = st.number_input("Enter weight (grams)", value=0.0, format="%.2f")
+    value = st.number_input("Enter weight (grams)", value=, format="%.2f")
     st.success(f"{value} grams = {value / 1000:.4f} kilograms")
 
 def temperature_converter():
     st.write("Convert between Celsius and Fahrenheit.")
-    value = st.number_input("Enter temperature (°C)", value=0.0, format="%.2f")
+    value = st.number_input("Enter temperature (°C)", value=, format="%.2f")
     st.success(f"{value}°C = {(value * 9/5) + 32:.2f}°F")
 
 def bmi_calculator():
     st.subheader("⚖️ Body Mass Index (BMI) Calculator")
-    weight = st.number_input("Enter your weight (kg)", value=0.0, format="%.2f")
+    weight = st.number_input("Enter your weight (kg)", value=, format="%.2f")
     height = st.number_input("Enter your height (m)", value=0.0, format="%.2f")
     
     if st.button("Calculate BMI", use_container_width=True):
